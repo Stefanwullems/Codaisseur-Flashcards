@@ -10,32 +10,25 @@ else if(document.querySelector(".type").id === "LearnDutch"){
 else if(document.querySelector(".type").id === "werwerwer"){
   dataIndex = 2;
 }
-console.log(dataIndex);
 
-// $(document).ready(function() {
-  $.ajax({
-   async: false,
-   url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde/latest',
-   method: 'GET',
-   success: function (out) {
-     data = out;
-   }
-  });
+$.ajax({
+  async: false,
+  url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde/latest',
+  method: 'GET',
+  success: function (out) {
+    data = out;
+  }
+});
 
-  // console.log(data);
-// })
+shuffle(data.categories[dataIndex].questions);
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
 
-    // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
@@ -63,7 +56,6 @@ let deleteFlashcard = () => {
 let questionIndex = 0;
 
 let createNewFlashcard = () => {
-  console.log("hi");
   let flashcardContainer = document.querySelector('.flashcard-container');
   let flashcard = document.createElement('div');
   flashcardContainer.appendChild(flashcard);

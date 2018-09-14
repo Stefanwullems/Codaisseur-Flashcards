@@ -2,9 +2,10 @@ html, body{
   margin: 0;
   height: 100%;
 
-    max-width: 100%;
-    overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: hidden;
 
+  font-family: 'Lato', sans-serif;
 }
 
 header{
@@ -18,6 +19,11 @@ header{
   grid-template-columns: 40% 20% 20% 20%;
 
   background-color: cyan;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 h1{
