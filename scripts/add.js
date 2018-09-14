@@ -1,15 +1,29 @@
+let data,
+  index = 0,
+  categories = [];
+
 $(document).ready(function () {
-  let index = 0,
-      categories = [];
+
+  $.ajax({
+    async: false,
+    url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde',
+    method: 'GET',
+    success: function (out) {
+      data = out;
+    }
+  });
+
+  for (const category of data.categories) {
+    categories.push(category.categoryName);
+  }
 
   const cardInputDiv = $('div.cards div.input'),
-        categoryInputDiv = $('div.categories div.input'),
-        categoryInput = categoryInputDiv.find('input'),
-        addCardButton = $('div.cards button.add'),
-        addCategoryButton = $('div.categories button.add'),
-        inputCardTemplate = $('template#add-card-input').html();
-
-  const app = {
+    categoryInputDiv = $('div.categories div.input'),
+    categoryInput = categoryInputDiv.find('input'),
+    addCardButton = $('div.cards button.add'),
+    addCategoryButton = $('div.categories button.add'),
+    inputCardTemplate = $('template#add-card-input').html(),
+    app = {
 
     addCard: function (e) {
       e.preventDefault();
