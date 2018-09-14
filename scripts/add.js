@@ -1,21 +1,7 @@
 let data,
-  index = 0,
-  categories = [];
+  index = 0;
 
 $(document).ready(function () {
-
-  $.ajax({
-    async: false,
-    url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde',
-    method: 'GET',
-    success: function (out) {
-      data = out;
-    }
-  });
-
-  for (const category of data.categories) {
-    categories.push(category.categoryName);
-  }
 
   const cardInputDiv = $('div.cards div.input'),
     categoryInputDiv = $('div.categories div.input'),
@@ -25,6 +11,23 @@ $(document).ready(function () {
     inputCardTemplate = $('template#add-card-input').html(),
     app = {
 
+    init: function () {
+
+      $.ajax({
+        async: false,
+        url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde/latest',
+        method: 'GET',
+        success: function (out) {
+          data = out;
+        }
+      });
+
+      addCardButton.on('click', this.addCard);
+      addCategoryButton.on('click', this.addCategory);
+
+      addCardButton.click();
+    },
+
     addCard: function (e) {
       e.preventDefault();
 
@@ -32,10 +35,10 @@ $(document).ready(function () {
         .append(inputCardTemplate
         .replace(/__index__/g, index));
 
-      for (const category of categories) {
+      for (const category of data.categories) {
         $(`p#card-${index}`)
           .find('select.category')
-          .append(`<option value="${category}">${category}</option>`)
+          .append(`<option value="${category.categoryName}">${category.categoryName}</option>`)
       }
 
       index++;
@@ -49,19 +52,38 @@ $(document).ready(function () {
       if (shownBool) {
         const val = categoryInput.val();
         $('select.category')
-          .append(`<option value="${val}">${val}</option>`)
-        categories.push(val);
-        categoryInput.val('');
+          .append(`<option value="${val}">${val}</option>`);
+
+        data.categories.push({
+          "categoryName": val,
+          "questions": []
+        });
+
+        console.log(JSON.stringify(data));
+
+        $.ajax({
+          url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde',
+          method: 'PUT',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          success: function () {
+            console.log('PUT SUCCESS')
+          },
+          error: function(out) {
+            console.log(out)
+          }
+        });
+
+
       }
 
+      categoryInput.val('');
       $(this).closest('.categories').find('.input').toggle();
       $(this).data('shown', !shownBool);
     }
 
   };
 
-  addCardButton.on('click', app.addCard);
-  addCategoryButton.on('click', app.addCategory);
-  addCardButton.click();
+  app.init();
 
 });
