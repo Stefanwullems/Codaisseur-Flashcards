@@ -136,3 +136,9 @@ footer {
    display: grid;
    grid-template-columns: 80% 20%;
 }
+
+p{
+  text-align: center;
+  font-size: 50px;
+  margin: auto;
+}
