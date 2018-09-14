@@ -1,5 +1,17 @@
+let data;
+
 window.onload = () => {
   createNewFlashcard();
+
+  $.ajax({
+    async: false,
+    url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde/latest',
+    method: 'GET',
+    success: function (out) {
+      data = out;
+    }
+  });
+
 }
 
 let newCard = () => {
