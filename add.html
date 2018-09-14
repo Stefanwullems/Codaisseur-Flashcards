@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="styles/add.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+
+<header>
+
+</header>
+<main>
+  <div class="categories">
+    <div class="input" style="display: none">
+      <input id="category">
+    </div>
+    <div class="buttons">
+      <button class="add" data-shown="false">Add Category</button>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="input">
+      <template id="add-card-input">
+        <p class="card" id="card-__index__">
+          <input class="question">
+          <input class="answer">
+          <select class="category"></select>
+        </p>
+      </template>
+    </div>
+    <div class="buttons">
+      <button class="add">Add Card</button>
+      <button class="finish">Finish</button>
+    </div>
+  </div>
+</main>
+
+
+
+
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+<script src="scripts/add.js"></script>
+</body>
+</html>
