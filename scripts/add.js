@@ -1,5 +1,6 @@
 let data,
-  index = 0;
+  index = 0,
+  categoryIndexes = [];
 
 $(document).ready(function () {
 
@@ -8,6 +9,7 @@ $(document).ready(function () {
     categoryInput = categoryInputDiv.find('input'),
     addCardButton = $('div.cards button.add'),
     addCategoryButton = $('div.categories button.add'),
+    finishAddingCards = $('div.cards button.finish'),
     inputCardTemplate = $('template#add-card-input').html(),
     app = {
 
@@ -19,11 +21,15 @@ $(document).ready(function () {
         method: 'GET',
         success: function (out) {
           data = out;
+          for (const category of data.categories) {
+            categoryIndexes.push(category.categoryName)
+          }
         }
       });
 
       addCardButton.on('click', this.addCard);
       addCategoryButton.on('click', this.addCategory);
+
 
       addCardButton.click();
     },
@@ -54,12 +60,12 @@ $(document).ready(function () {
         $('select.category')
           .append(`<option value="${val}">${val}</option>`);
 
+        categoryIndexes.push(val);
+
         data.categories.push({
           "categoryName": val,
           "questions": []
         });
-
-        console.log(JSON.stringify(data));
 
         $.ajax({
           url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde',
