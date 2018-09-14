@@ -1,5 +1,7 @@
 html, body{
   margin: 0;
+
+  font-family: 'Lato', sans-serif;
 }
 
 header{
@@ -22,6 +24,11 @@ h1{
 
   text-align: center;
   align-self: center;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 nav{
