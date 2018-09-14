@@ -17,7 +17,7 @@ $(document).ready(function () {
 
       $.ajax({
         async: false,
-        url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde/latest',
+        url: 'http://api.jsonbin.io/b/5b9bc8bf74ca4633aadcb4ec/latest',
         method: 'GET',
         success: function (out) {
           data = out;
@@ -58,6 +58,9 @@ $(document).ready(function () {
 
       if (shownBool) {
         const val = categoryInput.val();
+
+        if (val === '') return;
+
         $('select.category')
           .append(`<option value="${val}">${val}</option>`);
 
@@ -69,7 +72,7 @@ $(document).ready(function () {
         });
 
         $.ajax({
-          url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde',
+          url: 'http://api.jsonbin.io/b/5b9bc8bf74ca4633aadcb4ec',
           method: 'PUT',
           data: JSON.stringify(data),
           contentType: 'application/json',
@@ -103,12 +106,14 @@ $(document).ready(function () {
 
         const categoryIndex = categoryIndexes.indexOf(category);
 
+        console.log(category, categoryIndex, data);
+
         data.categories[categoryIndex].questions.push(card);
 
       });
 
       $.ajax({
-        url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde',
+        url: 'http://api.jsonbin.io/b/5b9bc8bf74ca4633aadcb4ec',
         method: 'PUT',
         data: JSON.stringify(data),
         contentType: 'application/json',

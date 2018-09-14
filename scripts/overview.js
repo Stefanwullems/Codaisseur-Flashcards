@@ -7,7 +7,7 @@ $(document).ready(function () {
     init: function () {
       $.ajax({
         async: false,
-        url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde/latest',
+        url: 'http://api.jsonbin.io/b/5b9bc8bf74ca4633aadcb4ec/latest',
         method: 'GET',
         success: function (out) {
           for (const category of out.categories) {
