@@ -12,17 +12,34 @@
 
 </header>
 <main>
-  <form>
-    <div class="category">
-
+  <div class="categories">
+    <div class="input" style="display: none">
+      <input id="category">
     </div>
-    <div class="input"></div>
     <div class="buttons">
-      <button class="add-card">Add Card</button>
+      <button class="add" data-shown="false">Add Category</button>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="input">
+      <template id="add-card-input">
+        <p id="card-__index__">
+          <input class="question">
+          <input class="answer">
+          <select class="category">
+
+          </select>
+        </p>
+      </template>
+    </div>
+    <div class="buttons">
+      <button class="add">Add Card</button>
       <button class="finish">Finish</button>
     </div>
-  </form>
+  </div>
 </main>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

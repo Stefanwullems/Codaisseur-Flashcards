@@ -1,18 +1,53 @@
 $(document).ready(function () {
-  let index = 0;
+  let index = 0,
+      categories = [];
 
-  const input = $('div.input'),
-        addCardButton = $('button.add-card'),
-        addCategoryButton = $('button.add-category'),
-        inputTemplate = '<p><input id="question-__index__"><input id="answer-__index__"></p>';
+  const cardInputDiv = $('div.cards div.input'),
+        categoryInputDiv = $('div.categories div.input'),
+        categoryInput = categoryInputDiv.find('input'),
+        addCardButton = $('div.cards button.add'),
+        addCategoryButton = $('div.categories button.add'),
+        inputCardTemplate = $('template#add-card-input').html();
 
-  addCardButton.on('click', function (e) {
-    e.preventDefault();
-    input.append(inputTemplate.replace(/__index__/g, index));
-    index++;
-  });
+  const app = {
+
+    addCard: function (e) {
+      e.preventDefault();
+
+      cardInputDiv
+        .append(inputCardTemplate
+        .replace(/__index__/g, index));
+
+      for (const category of categories) {
+        $(`p#card-${index}`)
+          .find('select.category')
+          .append(`<option value="${category}">${category}</option>`)
+      }
+
+      index++;
+    },
+
+    addCategory: function (e) {
+      e.preventDefault();
+
+      const shownBool = $(this).data('shown');
+
+      if (shownBool) {
+        const val = categoryInput.val();
+        $('select.category')
+          .append(`<option value="${val}">${val}</option>`)
+        categories.push(val);
+        categoryInput.val('');
+      }
+
+      $(this).closest('.categories').find('.input').toggle();
+      $(this).data('shown', !shownBool);
+    }
+
+  };
+
+  addCardButton.on('click', app.addCard);
+  addCategoryButton.on('click', app.addCategory);
   addCardButton.click();
-
-
 
 });
