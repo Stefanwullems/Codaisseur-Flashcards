@@ -29,7 +29,7 @@ $(document).ready(function () {
 
       addCardButton.on('click', this.addCard);
       addCategoryButton.on('click', this.addCategory);
-
+      finishAddingCards.on('click', this.finishAddingCards)
 
       addCardButton.click();
     },
@@ -39,7 +39,8 @@ $(document).ready(function () {
 
       cardInputDiv
         .append(inputCardTemplate
-        .replace(/__index__/g, index));
+        .replace(/__index__/g, index)
+      );
 
       for (const category of data.categories) {
         $(`p#card-${index}`)
@@ -86,6 +87,40 @@ $(document).ready(function () {
       categoryInput.val('');
       $(this).closest('.categories').find('.input').toggle();
       $(this).data('shown', !shownBool);
+    },
+
+    finishAddingCards: function () {
+      $('.cards .input').find('.card').each(function () {
+
+        const question = $(this).find('.question').val();
+        const answer = $(this).find('.answer').val();
+        const category = $(this).find('.category').val();
+
+        const card = {
+          "question": question,
+          "answer": answer
+        };
+
+        const categoryIndex = categoryIndexes.indexOf(category);
+
+        data.categories[categoryIndex].questions.push(card);
+
+      });
+
+      $.ajax({
+        url: 'http://api.jsonbin.io/b/5b9b80fe1bf1ca33b06b0fde',
+        method: 'PUT',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function () {
+          console.log('PUT SUCCESS');
+          window.location.replace("index.html");
+        },
+        error: function(out) {
+          console.log(out)
+        }
+      });
+
     }
 
   };
